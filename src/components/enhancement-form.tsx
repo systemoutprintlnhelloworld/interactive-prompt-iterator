@@ -182,10 +182,10 @@ export function EnhancementForm({ toolInvocation, addToolResult, onSubmit }: Enh
                                 <div className="flex items-center gap-2">
                                     <Label className="text-sm font-semibold text-foreground/80">{dim.title}</Label>
                                     <Button
-                                        variant="ghost"
+                                        variant={isMultiple ? "default" : "outline"}
                                         size="sm"
                                         disabled={submitted}
-                                        className="h-5 px-2 text-[10px] text-muted-foreground hover:text-primary"
+                                        className="h-6 px-3 text-xs font-medium"
                                         onClick={() => toggleMultiSelect(dim.key)}
                                     >
                                         {isMultiple ? '多选' : '单选'}
