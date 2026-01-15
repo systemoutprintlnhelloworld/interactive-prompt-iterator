@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "copy-pdf-worker": "cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/pdf.worker.min.mjs",
+    "dev": "npm run copy-pdf-worker && next dev",
+    "build": "npm run copy-pdf-worker && next build",
     "start": "next start",
     "lint": "eslint"
   },

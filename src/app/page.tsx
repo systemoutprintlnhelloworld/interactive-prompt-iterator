@@ -391,12 +391,9 @@ export default function Home() {
         // 动态导入 pdfjs-dist
         const pdfjs = await import('pdfjs-dist')
 
-        // 设置 worker - 使用 new URL() 和 import.meta.url（Next.js 推荐方案）
+        // 设置 worker - 使用 public 目录中的静态文件
         if (typeof window !== 'undefined' && !pdfjs.GlobalWorkerOptions.workerSrc) {
-          pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-            'pdfjs-dist/build/pdf.worker.min.mjs',
-            import.meta.url
-          ).toString()
+          pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs'
         }
 
         const loadingTask = pdfjs.getDocument({ data: arrayBuffer })
