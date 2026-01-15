@@ -177,11 +177,11 @@ export function ChatSidebar({ currentSessionId, onSessionSelect, onNewChat }: Ch
                                 </>
                             ) : (
                                 <>
-                                    <div className="flex flex-col gap-1 overflow-hidden">
+                                    <div className="flex flex-col gap-1 overflow-hidden flex-1 min-w-0 pr-2">
                                         <span className="font-medium text-sm truncate">
                                             {session.title || '未命名对话'}
                                         </span>
-                                        <span className="text-xs text-muted-foreground">
+                                        <span className="text-xs text-muted-foreground truncate">
                                             {formatDistanceToNow(session.updatedAt, { addSuffix: true, locale: zhCN })}
                                         </span>
                                     </div>
