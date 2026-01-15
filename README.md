@@ -9,23 +9,50 @@
 
   通过多轮交互式对话，帮助用户将模糊的想法转化为结构化、高质量的 AI 提示词。
 
-  [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/YOUR_REPO_NAME)
+  ### 🚀 快速部署
+
+  [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/systemoutprintlnhelloworld/interactive-prompt-iterator)
+
+  点击上方按钮，一键部署到 Vercel，无需配置即可使用！
+
 </div>
 
 ## 📺 功能演示
 
 ### 1. 交互式提示词生成流程
-> 用这个 GIF 体现：从用户输入模糊需求 → AI 提供多维度选项 → 用户选择偏好 → 生成结构化提示词的完整流程
+> **场景**: 从模糊需求到精准提示词
+>
+> 演示：用户输入"帮我写一篇关于AI的文章" → AI提供多维度选项（角色、风格、深度、格式）→ 用户选择偏好 → 生成结构化提示词
 
 ![交互式生成流程](docs/screenshots/demo-interactive-flow.webp)
 
 ### 2. 文件上传与解析
-> 用这个 GIF 体现：上传 PDF/DOCX/图片文件 → 自动解析内容 → 结合文件内容生成提示词
+> **场景**: 基于文档内容生成提示词
+>
+> 演示：上传PDF论文/DOCX报告/图片截图 → 自动解析内容 → AI结合文件内容提供优化建议 → 生成针对性提示词
 
 ![文件上传演示](docs/screenshots/demo-file-upload.webp)
 
-### 3. 自定义模板管理
-> 用这个 GIF 体现：创建自定义提示词模板 → 保存模板 → 切换使用不同模板
+### 3. 多场景应用示例
+
+#### 📝 内容创作场景
+> 演示：博客文章、技术文档、营销文案等不同内容类型的提示词生成
+
+#### 💼 专业工作场景
+> 演示：数据分析报告、项目方案、会议纪要等商务场景的提示词优化
+
+#### 🎓 学术研究场景
+> 演示：论文摘要、文献综述、研究计划等学术场景的提示词构建
+
+#### 🎨 创意设计场景
+> 演示：UI设计需求、品牌故事、创意策划等设计场景的提示词迭代
+
+![多场景应用](docs/screenshots/demo-multi-scenarios.webp)
+
+### 4. 自定义模板管理
+> **场景**: 保存和复用常用提示词模板
+>
+> 演示：创建自定义提示词模板 → 保存到本地 → 切换使用不同模板 → 快速应用到新对话
 
 ![模板管理演示](docs/screenshots/demo-template-management.webp)
 
@@ -59,12 +86,25 @@
 
 ## 🚀 快速开始
 
-### 本地开发
+### 🚢 一键部署（推荐）
+
+点击下方按钮，一键部署到 Vercel，无需任何配置：
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/systemoutprintlnhelloworld/interactive-prompt-iterator)
+
+部署完成后：
+1. 访问生成的 URL
+2. 点击右上角设置图标 ⚙️
+3. 点击"测试预设（一键配置）"按钮，自动填充 deepseek-v3.2-exp 配置
+4. 或手动输入您的 API Key 和配置
+5. 开始使用！
+
+### 💻 本地开发
 
 1. **克隆仓库**
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-cd YOUR_REPO_NAME
+git clone https://github.com/systemoutprintlnhelloworld/interactive-prompt-iterator.git
+cd interactive-prompt-iterator
 ```
 
 2. **安装依赖**
@@ -121,11 +161,11 @@ npm run dev
 
 ## 🚢 部署到 Vercel
 
-### 方式一：一键部署
+### 方式一：一键部署（推荐）
 
 点击下方按钮，一键部署到 Vercel：
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/YOUR_REPO_NAME)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/systemoutprintlnhelloworld/interactive-prompt-iterator)
 
 ### 方式二：手动部署
 
@@ -135,7 +175,7 @@ git init
 git add .
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+git remote add origin https://github.com/systemoutprintlnhelloworld/interactive-prompt-iterator.git
 git push -u origin main
 ```
 
@@ -282,8 +322,8 @@ A: 对话历史存储在浏览器的 IndexedDB 中，清除浏览器数据会导
 
 如有问题或建议，欢迎通过以下方式联系：
 
-- 提交 [Issue](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/issues)
-- 发起 [Discussion](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/discussions)
+- 提交 [Issue](https://github.com/systemoutprintlnhelloworld/interactive-prompt-iterator/issues)
+- 发起 [Discussion](https://github.com/systemoutprintlnhelloworld/interactive-prompt-iterator/discussions)
 
 ---
 
