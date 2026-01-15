@@ -26,8 +26,7 @@ const TEST_CONFIG = {
     systemPrompt: '你是交互式提示词优化助手。你的目标是通过多轮对话，引导用户明确需求，并最终生成高质量的结构化提示词。你应该主动提出建议，使用Checkbox等形式让用户选择。'
 }
 
-const PROMPT_PRESETS = {
-    default: `你是交互式提示词优化助手。你的目标是通过多轮对话，引导用户明确需求，并最终生成高质量的结构化提示词。
+const DEFAULT_SYSTEM_PROMPT = `你是交互式提示词优化助手。你的目标是通过多轮对话，引导用户明确需求，并最终生成高质量的结构化提示词。
 
 **核心工作流程**:
 
@@ -43,67 +42,22 @@ const PROMPT_PRESETS = {
 
 2. **Phase 2: 交互生成**
    - 当调用 \`suggest_enhancements\` 的工具反应（用户的选择）后，生成最终的 Markdown 文档。
-
    - **文档格式要求**:
-     - **文档格式**: (H1) 标题提示词方案 **(H1)**
-     - 必须包含 **##角色定义** (H2)
-     - 必须包含 **##核心目标** (H2)
-     - 必须包含 **##工作流程** (H2)
-     - 必须包含 **##约束条件** (H2)
-     - 必须包含 **##知识边界** (H2)
+     - 标题提示词方案 (H1)
+     - 必须包含 ##角色定义 (H2)
+     - 必须包含 ##核心目标 (H2)
+     - 必须包含 ##工作流程 (H2)
+     - 必须包含 ##约束条件 (H2)
+     - 必须包含 ##知识边界 (H2)
 
 3. **Phase 3: 最终确认**
    - 调用 \`propose_prompt\` 工具，将生成的 Markdown 提示词展示给用户。
-   - 用户可以：
-     - 复制使用
-     - 继续优化
-     - 重新生成
+   - 用户可以：复制使用、继续优化、重新生成
 
 **重要原则**:
 - 不要跳过 Phase 1 直接生成提示词
 - 必须使用工具进行交互，不要纯文本输出选项
-- 生成的提示词必须结构化、可复用`,
-
-    simple: '你是一个提示词助手，帮助用户优化和改进他们的提示词。请直接根据用户需求生成优化后的提示词。',
-
-    professional: `你是专业的提示词工程师。你的任务是将用户的模糊需求转化为精准、结构化的 AI 指令。
-
-**工作流程**:
-1. 理解用户需求，识别关键要素
-2. 使用 suggest_enhancements 工具收集用户偏好
-3. 生成包含以下结构的提示词：
-   - 角色定义
-   - 核心目标
-   - 工作流程
-   - 约束条件
-   - 输出格式
-4. 使用 propose_prompt 工具展示最终结果`,
-
-    creative: `你是创意提示词设计师。你擅长将用户的想法转化为富有创意和表现力的 AI 指令。
-
-**特点**:
-- 注重语言的生动性和感染力
-- 善于使用比喻和具体场景
-- 关注用户体验和情感共鸣
-
-**流程**:
-1. 深入理解用户的创意需求
-2. 提供多样化的风格选项
-3. 生成富有表现力的提示词`,
-
-    technical: `你是技术型提示词专家。你专注于生成精确、逻辑严密的技术类提示词。
-
-**适用场景**:
-- 代码生成
-- 技术文档
-- 数据分析
-- 系统设计
-
-**原则**:
-- 精确性优先
-- 结构化输出
-- 可验证的标准`
-}
+- 生成的提示词必须结构化、可复用`
 
 export function SettingsDialog() {
     const { apiKey, baseUrl, model, systemPrompt, availableModels, setApiKey, setBaseUrl, setModel, setSystemPrompt, setAvailableModels } = useAppStore()
@@ -115,15 +69,26 @@ export function SettingsDialog() {
     const [checkStatus, setCheckStatus] = useState<'idle' | 'success' | 'error'>('idle')
     const [checkMessage, setCheckMessage] = useState('')
 
-    // Prompt Preset State
-    const [promptPreset, setPromptPreset] = useState<string>('custom')
-    const [presetMsg, setPresetMsg] = useState('')
+    // Custom Templates State
+    const [customTemplates, setCustomTemplates] = useState<Array<{name: string, content: string}>>([])
+    const [selectedTemplate, setSelectedTemplate] = useState<string>('default')
+    const [isAddingTemplate, setIsAddingTemplate] = useState(false)
+    const [newTemplateName, setNewTemplateName] = useState('')
 
     // Initial sync
     useEffect(() => {
         if (open) {
             setLocalConfig({ apiKey, baseUrl, model, systemPrompt })
             setCheckStatus('idle')
+            // Load custom templates from localStorage
+            const saved = localStorage.getItem('custom-prompt-templates')
+            if (saved) {
+                try {
+                    setCustomTemplates(JSON.parse(saved))
+                } catch (e) {
+                    console.error('Failed to load templates:', e)
+                }
+            }
         }
     }, [open, apiKey, baseUrl, model, systemPrompt])
 
@@ -200,16 +165,16 @@ export function SettingsDialog() {
         }
         setLocalConfig(newConfig)
         setCheckStatus('idle')
-        setPresetMsg('预设已应用！')
-        setTimeout(() => setPresetMsg(''), 2000)
     }
 
-    const handlePresetChange = (val: string) => {
-        setPromptPreset(val)
-        if (val !== 'custom') {
-            const presetContent = (PROMPT_PRESETS as any)[val]
-            if (presetContent) {
-                setLocalConfig(prev => ({ ...prev, systemPrompt: presetContent }))
+    const handleTemplateChange = (val: string) => {
+        setSelectedTemplate(val)
+        if (val === 'default') {
+            setLocalConfig(prev => ({ ...prev, systemPrompt: DEFAULT_SYSTEM_PROMPT }))
+        } else {
+            const template = customTemplates.find(t => t.name === val)
+            if (template) {
+                setLocalConfig(prev => ({ ...prev, systemPrompt: template.content }))
             }
         }
     }
@@ -218,6 +183,30 @@ export function SettingsDialog() {
         setLocalConfig(TEST_CONFIG)
         setCheckStatus('idle')
         setCheckMessage('')
+    }
+
+    const handleAddTemplate = () => {
+        if (!newTemplateName.trim()) return
+        const newTemplate = {
+            name: newTemplateName.trim(),
+            content: localConfig.systemPrompt
+        }
+        const updated = [...customTemplates, newTemplate]
+        setCustomTemplates(updated)
+        localStorage.setItem('custom-prompt-templates', JSON.stringify(updated))
+        setNewTemplateName('')
+        setIsAddingTemplate(false)
+        setSelectedTemplate(newTemplate.name)
+    }
+
+    const handleDeleteTemplate = (name: string) => {
+        const updated = customTemplates.filter(t => t.name !== name)
+        setCustomTemplates(updated)
+        localStorage.setItem('custom-prompt-templates', JSON.stringify(updated))
+        if (selectedTemplate === name) {
+            setSelectedTemplate('default')
+            setLocalConfig(prev => ({ ...prev, systemPrompt: DEFAULT_SYSTEM_PROMPT }))
+        }
     }
 
     const handleSave = () => {
@@ -326,27 +315,62 @@ export function SettingsDialog() {
                         <TabsContent value="prompt" className="space-y-6 mt-0">
                             <div className="flex items-center justify-between">
                                 <Label>系统提示词模板</Label>
-                                <Select value={promptPreset} onValueChange={handlePresetChange}>
-                                    <SelectTrigger className="w-[200px]">
-                                        <SelectValue />
-                                    </SelectTrigger>
-                                    <SelectContent className="z-50">
-                                        <SelectItem value="default">默认模式 (完整交互流程)</SelectItem>
-                                        <SelectItem value="simple">简单模式 (快速生成)</SelectItem>
-                                        <SelectItem value="professional">专业模式 (结构化输出)</SelectItem>
-                                        <SelectItem value="creative">创意模式 (富有表现力)</SelectItem>
-                                        <SelectItem value="technical">技术模式 (精确严谨)</SelectItem>
-                                        <SelectItem value="custom">自定义</SelectItem>
-                                    </SelectContent>
-                                </Select>
+                                <div className="flex gap-2">
+                                    <Select value={selectedTemplate} onValueChange={handleTemplateChange}>
+                                        <SelectTrigger className="w-[200px]">
+                                            <SelectValue />
+                                        </SelectTrigger>
+                                        <SelectContent className="z-50">
+                                            <SelectItem value="default">默认模板</SelectItem>
+                                            {customTemplates.map(t => (
+                                                <SelectItem key={t.name} value={t.name}>{t.name}</SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    {!isAddingTemplate && (
+                                        <Button size="sm" variant="outline" onClick={() => setIsAddingTemplate(true)}>
+                                            + 保存为新模板
+                                        </Button>
+                                    )}
+                                </div>
                             </div>
+
+                            {isAddingTemplate && (
+                                <div className="flex gap-2 p-3 bg-muted/30 rounded-lg border">
+                                    <Input
+                                        placeholder="输入模板名称..."
+                                        value={newTemplateName}
+                                        onChange={e => setNewTemplateName(e.target.value)}
+                                        onKeyDown={e => e.key === 'Enter' && handleAddTemplate()}
+                                        className="flex-1"
+                                    />
+                                    <Button size="sm" onClick={handleAddTemplate} disabled={!newTemplateName.trim()}>
+                                        保存
+                                    </Button>
+                                    <Button size="sm" variant="ghost" onClick={() => setIsAddingTemplate(false)}>
+                                        取消
+                                    </Button>
+                                </div>
+                            )}
+
+                            {selectedTemplate !== 'default' && (
+                                <div className="flex justify-end">
+                                    <Button
+                                        size="sm"
+                                        variant="destructive"
+                                        onClick={() => handleDeleteTemplate(selectedTemplate)}
+                                    >
+                                        删除当前模板
+                                    </Button>
+                                </div>
+                            )}
 
                             <Textarea
                                 className="min-h-[400px] font-mono text-sm leading-relaxed p-4"
                                 value={localConfig.systemPrompt}
                                 onChange={e => {
                                     setLocalConfig({ ...localConfig, systemPrompt: e.target.value })
-                                    setPromptPreset('custom')
+                                    setSelectedTemplate('custom')
                                 }}
                                 placeholder="在此输入 System Prompt..."
                             />
