@@ -213,7 +213,7 @@ export function EnhancementForm({ toolInvocation, addToolResult, onSubmit }: Enh
                                         <button
                                             type="button"
                                             disabled={submitted}
-                                            onClick={() => !isMultiple && toggleMultiSelect(dim.key)}
+                                            onClick={() => isMultiple && toggleMultiSelect(dim.key)}
                                             className={`px-3 py-1 rounded transition-all ${
                                                 !isMultiple
                                                     ? 'bg-background text-foreground shadow-sm font-medium'
@@ -225,7 +225,7 @@ export function EnhancementForm({ toolInvocation, addToolResult, onSubmit }: Enh
                                         <button
                                             type="button"
                                             disabled={submitted}
-                                            onClick={() => isMultiple && toggleMultiSelect(dim.key)}
+                                            onClick={() => !isMultiple && toggleMultiSelect(dim.key)}
                                             className={`px-3 py-1 rounded transition-all ${
                                                 isMultiple
                                                     ? 'bg-background text-foreground shadow-sm font-medium'

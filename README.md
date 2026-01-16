@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="icon.png" alt="Prompt Iterator Logo" width="120" height="120" />
+  <img src="icon.png" alt="Prompt Iterator Logo" width="120" height="120" style="max-width: 100%;" />
 
   # 🚀 交互式提示词迭代器
 
@@ -44,13 +44,14 @@
     <a href="TODO.md">开发计划</a>
   </p>
 
-  <h3>🚀 一键部署</h3>
-
-  <a href="https://vercel.com/new/clone?repository-url=https://github.com/systemoutprintlnhelloworld/interactive-prompt-iterator">
-    <img src="https://vercel.com/button" alt="Deploy with Vercel" />
-  </a>
-
-  <p><em>点击上方按钮一键部署到 Vercel，或查看<a href="#-本地开发">本地开发指南</a></em></p>
+  <p align="center">
+    <a href="https://interactive-prompt-iterator.vercel.app" style="margin-right: 20px;">
+      <img src="https://img.shields.io/badge/🎯_在线演示-Live_Demo-brightgreen?style=for-the-badge&logo=vercel" alt="Live Demo" />
+    </a>
+    <a href="https://vercel.com/new/clone?repository-url=https://github.com/systemoutprintlnhelloworld/interactive-prompt-iterator">
+      <img src="https://img.shields.io/badge/🚀_一键部署-Deploy-blue?style=for-the-badge&logo=vercel" alt="Deploy with Vercel" />
+    </a>
+  </p>
 
 </div>
 
