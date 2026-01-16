@@ -1,5 +1,6 @@
 <div align="center">
-  <img src="icon.png" alt="Prompt Iterator Logo" width="120" height="120" />
+  <img src="icon.png" alt="Prompt Iterator Logo" style="max-width: 100%;"  />
+
 
   # 🚀 交互式提示词迭代器
 
