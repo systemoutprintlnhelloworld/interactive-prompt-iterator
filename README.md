@@ -1,7 +1,6 @@
 <div align="center">
   <img src="icon.png" alt="Prompt Iterator Logo" style="max-width: 100%;"  />
 
-
   # 🚀 交互式提示词迭代器
 
   ### Interactive Prompt Iterator
@@ -12,11 +11,11 @@
 
   [简体中文](README.md) | [English](README_EN.md)
 
-  ### 🚀 快速部署
+  ### 🚀 快速开始
 
   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/systemoutprintlnhelloworld/interactive-prompt-iterator)
 
-  点击上方按钮，一键部署到 Vercel，无需配置即可使用！
+  点击上方按钮一键部署，或查看[本地开发指南](#-本地开发)
 
 </div>
 
@@ -87,22 +86,7 @@
 - **AI Integration**: Vercel AI SDK 6.0 (@ai-sdk/react, @ai-sdk/openai)
 - **File Processing**: pdfjs-dist 5.4 (PDF parsing)
 
-## 🚀 快速开始
-
-### 🚢 一键部署（推荐）
-
-点击下方按钮，一键部署到 Vercel，无需任何配置：
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/systemoutprintlnhelloworld/interactive-prompt-iterator)
-
-部署完成后：
-1. 访问生成的 URL
-2. 点击右上角设置图标 ⚙️
-3. 点击"测试预设（一键配置）"按钮，自动填充 deepseek-v3.2-exp 配置
-4. 或手动输入您的 API Key 和配置
-5. 开始使用！
-
-### 💻 本地开发
+## 💻 本地开发
 
 1. **克隆仓库**
 ```bash
@@ -123,7 +107,7 @@ npm run dev
 4. **访问应用**
 打开浏览器访问 [http://localhost:3000](http://localhost:3000)
 
-### 配置说明
+### ⚙️ 配置说明
 
 1. 点击右上角 **设置图标 (⚙️)**
 2. 输入您的 AI API 配置：
@@ -161,76 +145,6 @@ npm run dev
 ├── public/                 # 静态资源
 └── package.json
 ```
-
-## 🚢 部署到 Vercel
-
-### 方式一：一键部署（推荐）
-
-点击下方按钮，一键部署到 Vercel：
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/systemoutprintlnhelloworld/interactive-prompt-iterator)
-
-### 方式二：手动部署
-
-1. **推送代码到 GitHub**
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin https://github.com/systemoutprintlnhelloworld/interactive-prompt-iterator.git
-git push -u origin main
-```
-
-2. **连接 Vercel**
-   - 访问 [Vercel Dashboard](https://vercel.com/dashboard)
-   - 点击 "New Project"
-   - 导入你的 GitHub 仓库
-   - Vercel 会自动检测 Next.js 项目并配置构建设置
-
-3. **部署**
-   - 点击 "Deploy"
-   - 等待构建完成
-   - 访问生成的 URL
-
-### 环境变量配置（可选）
-
-如果需要在服务端配置默认值，可以创建 `.env.local` 文件：
-
-```env
-# 可选：设置默认 API 配置（用户仍可在前端覆盖）
-NEXT_PUBLIC_DEFAULT_API_KEY=your_api_key_here
-NEXT_PUBLIC_DEFAULT_BASE_URL=https://api.openai.com/v1
-NEXT_PUBLIC_DEFAULT_MODEL=gpt-4o
-```
-
-> ⚠️ **注意**: 不要将包含真实 API Key 的 `.env.local` 文件提交到 Git
-
-## 🎯 功能特性
-
-### 交互式提示词优化
-- 通过多轮对话逐步明确需求
-- 智能提问引导用户思考
-- 生成结构化的最终提示词
-
-### 文件处理
-- **图片识别**: 支持上传或粘贴图片，配合 Vision 模型分析
-- **PDF 解析**: 自动提取 PDF 文本内容
-- **多模态支持**: 图文混合输入
-
-### 对话管理
-- 自动保存对话历史
-- 支持多会话切换
-- 可折叠侧边栏
-- 独立滚动区域
-
-### 用户体验
-- 实时流式响应
-- 加载动画提示
-- 消息编辑和删除
-- 一键复制内容
-- 响应式设计
-
 
 ## 🔧 开发指南
 
