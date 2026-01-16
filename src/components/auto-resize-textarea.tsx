@@ -42,17 +42,15 @@ export function AutoResizeTextarea({
     // 重置高度以获取正确的 scrollHeight
     textarea.style.height = 'auto'
 
-    // 计算最大高度（屏幕高度的 1/6）
-    const maxHeight = window.innerHeight / 6
+    // 计算最大高度（屏幕高度的 1/4，更大的显示空间）
+    const maxHeight = Math.max(window.innerHeight / 4, 150)
     const scrollHeight = textarea.scrollHeight
 
     if (scrollHeight > maxHeight) {
       textarea.style.height = `${maxHeight}px`
-      textarea.style.overflowY = 'auto'
       setShowExpandButton(true)
     } else {
       textarea.style.height = `${scrollHeight}px`
-      textarea.style.overflowY = 'hidden'
       setShowExpandButton(false)
     }
   }, [value])
@@ -68,9 +66,14 @@ export function AutoResizeTextarea({
           placeholder={placeholder}
           disabled={disabled}
           autoFocus={autoFocus}
-          className={`resize-none border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 px-4 py-3 min-h-[50px] transition-all whitespace-pre-wrap break-words ${className}`}
+          className={`resize-none border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 px-4 py-3 min-h-[50px] leading-relaxed ${className}`}
           rows={1}
-          style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}
+          style={{
+            lineHeight: '1.6',
+            wordBreak: 'break-word',
+            overflowWrap: 'anywhere',
+            whiteSpace: 'pre-wrap'
+          }}
         />
 
         {showExpandButton && (
@@ -79,8 +82,8 @@ export function AutoResizeTextarea({
             size="icon"
             variant="ghost"
             onClick={() => setIsExpanded(true)}
-            className="absolute right-2 bottom-2 h-8 w-8 rounded-md hover:bg-muted/80 transition-all animate-in fade-in zoom-in"
-            title="展开输入框"
+            className="absolute right-2 top-2 h-8 w-8 rounded-md bg-background/80 backdrop-blur-sm hover:bg-muted shadow-sm transition-all animate-in fade-in zoom-in z-10"
+            title="展开输入框 (查看完整内容)"
           >
             <Maximize2 className="w-4 h-4" />
           </Button>
@@ -89,7 +92,7 @@ export function AutoResizeTextarea({
 
       {/* 放大对话框 */}
       <Dialog open={isExpanded} onOpenChange={setIsExpanded}>
-        <DialogContent className="max-w-3xl max-h-[80vh]">
+        <DialogContent className="max-w-4xl max-h-[85vh] flex flex-col">
           <DialogHeader>
             <DialogTitle>编辑输入内容</DialogTitle>
           </DialogHeader>
@@ -97,8 +100,14 @@ export function AutoResizeTextarea({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
-            className="min-h-[400px] resize-none"
+            className="flex-1 min-h-[500px] resize-none leading-relaxed"
             autoFocus
+            style={{
+              lineHeight: '1.6',
+              wordBreak: 'break-word',
+              overflowWrap: 'anywhere',
+              whiteSpace: 'pre-wrap'
+            }}
           />
         </DialogContent>
       </Dialog>
