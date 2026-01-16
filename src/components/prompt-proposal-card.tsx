@@ -267,7 +267,7 @@ export function PromptProposalCard({ toolInvocation, addToolResult }: PromptProp
         {/* 全屏模态框 */}
         {isFullscreen && (
             <div className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm flex items-center justify-center p-4">
-                <div className="w-full max-w-4xl h-[90vh] flex flex-col bg-card border rounded-lg shadow-2xl">
+                <div className="w-full max-w-6xl h-[90vh] flex flex-col bg-card border rounded-lg shadow-2xl">
                     <div className="flex items-center justify-between p-4 border-b">
                         <h3 className="text-lg font-semibold">提示词预览</h3>
                         <Button

@@ -979,20 +979,21 @@ export default function Home() {
         {/* Floating Input Area - 仅在对话标签页显示 */}
         {activeTab === 'chat' && (
         <div className="p-4 bg-background border-t shrink-0">
-          <div className="max-w-3xl mx-auto space-y-3">
-            {/* 文件上传区域 */}
-            <FileUpload
-              onFileSelect={handleFileSelect}
-              onFileRemove={handleFileRemove}
-              currentFile={uploadedFile}
-              currentPreview={filePreview}
-              modelSupportsVision={modelSupportsVision}
-            />
-
+          <div className="max-w-3xl mx-auto">
             <form
               onSubmit={onFormSubmit}
               className="relative flex items-end gap-2 p-2 rounded-xl border bg-muted/40 hover:border-primary/50 focus-within:border-primary/50 focus-within:ring-1 focus-within:ring-primary/20 transition-all"
             >
+              {/* 文件上传按钮 - 移到输入框左侧 */}
+              <div className="mb-1 ml-1">
+                <FileUpload
+                  onFileSelect={handleFileSelect}
+                  onFileRemove={handleFileRemove}
+                  currentFile={uploadedFile}
+                  currentPreview={filePreview}
+                  modelSupportsVision={modelSupportsVision}
+                />
+              </div>
               <AutoResizeTextarea
                 value={localInput}
                 onChange={setLocalInput}
