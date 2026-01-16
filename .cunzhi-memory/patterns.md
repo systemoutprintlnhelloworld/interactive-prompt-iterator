@@ -67,3 +67,29 @@
 - 使用 diff 算法计算文本差异
 - React 组件：DiffViewer, ImprovementSummary
 - 支持切换视图模式（并排/内联/摘要）
+- ## 项目优化记录 (2026-01-16)
+
+### 已完成的四大优化
+
+1. **对话列表滚动位置保存**
+   - 修改文件: `src/components/chat-sidebar.tsx`, `src/components/ui/scroll-area.tsx`
+   - 解决方案: 使用 useRef 保存滚动位置，在轮询刷新前保存，刷新后恢复
+   - 问题: 每2秒轮询导致滚动位置重置
+
+2. **输入框放大按钮显示逻辑优化**
+   - 修改文件: `src/components/auto-resize-textarea.tsx`
+   - 优化: 当内容超过一行时就显示放大按钮（原逻辑是超过最大高度阈值）
+   - 实现: 通过计算 lineHeight + padding 判断是否超过单行
+
+3. **文本附件显示优化**
+   - 新增文件: `src/components/file-attachment-icon.tsx`
+   - 修改文件: `src/app/page.tsx`
+   - 优化: 只有图片显示预览，PDF/DOCX/TXT 使用 SVG 图标+文件名
+   - 效果: 大幅节省空间，视觉更清晰
+
+4. **提示词收藏功能**
+   - 数据库扩展: `src/lib/db.ts` 新增 FavoritePrompt 表
+   - 新增组件: `src/components/favorites-dialog.tsx` (收藏管理)
+   - 修改组件: `src/components/prompt-proposal-card.tsx` (添加收藏按钮)
+   - 主页集成: `src/app/page.tsx` (顶部导航栏收藏入口)
+   - 功能: 收藏、浏览、搜索、编辑、删除、复制

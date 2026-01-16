@@ -39,15 +39,50 @@ export function EnhancementForm({ toolInvocation, addToolResult, onSubmit }: Enh
     const [editingOption, setEditingOption] = useState<{ dimKey: string; optionValue: string } | null>(null) // 正在编辑的选项
     const [editedLabels, setEditedLabels] = useState<Record<string, string>>({}) // 编辑后的标签
 
-    // Parse args safely
+    // Parse args safely with better error handling
     let formConfig: { dimensions: EnhancementDimension[] } | null = null
     try {
-        formConfig = typeof args === 'string' ? JSON.parse(args) : args
+        // 调试：输出原始 args
+        console.log('EnhancementForm args:', args)
+        console.log('EnhancementForm args type:', typeof args)
+
+        // 处理流式数据：args 可能是对象或字符串
+        let parsed = typeof args === 'string' ? JSON.parse(args) : args
+        console.log('EnhancementForm parsed:', parsed)
+
+        // 验证解析结果的结构
+        if (parsed && typeof parsed === 'object') {
+            // 检查是否有 dimensions 字段且为数组
+            if (Array.isArray(parsed.dimensions) && parsed.dimensions.length > 0) {
+                console.log('Found dimensions:', parsed.dimensions.length)
+
+                // 进一步验证每个 dimension 的结构
+                const validDimensions = parsed.dimensions.filter((dim: any) =>
+                    dim &&
+                    typeof dim === 'object' &&
+                    dim.key &&
+                    dim.title &&
+                    Array.isArray(dim.options) &&
+                    dim.options.length > 0
+                )
+
+                console.log('Valid dimensions:', validDimensions.length)
+
+                if (validDimensions.length > 0) {
+                    formConfig = { dimensions: validDimensions }
+                }
+            } else {
+                console.warn('No valid dimensions array found')
+            }
+        }
     } catch (e) {
-        // Partial JSON
+        // JSON 解析失败，可能是流式数据还未完成
+        console.error('Enhancement form config parsing error:', e)
+        console.error('Args value:', args)
     }
 
-    if (!formConfig || !formConfig.dimensions) {
+    // 如果配置无效或为空，显示加载状态
+    if (!formConfig || !formConfig.dimensions || formConfig.dimensions.length === 0) {
         return (
             <Card className="flex items-center justify-center p-6 border-dashed animate-pulse">
                 <Sparkles className="w-5 h-5 text-primary animate-spin mr-2" />
