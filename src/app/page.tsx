@@ -793,7 +793,7 @@ export default function Home() {
                     <div
                       className={`rounded-2xl px-5 py-3 shadow-sm ${m.role === 'user'
                         ? 'bg-primary text-primary-foreground rounded-tr-sm max-w-[85%]'
-                        : 'bg-card text-card-foreground border rounded-tl-sm max-w-[95%]'
+                        : 'bg-card text-card-foreground border rounded-tl-sm w-full'
                         }`}
                     >
                       {/* 只在有内容且不是纯工具调用时显示文本 */}
@@ -862,12 +862,19 @@ export default function Home() {
                                   fileType={file.type}
                                   fileContent={(() => {
                                     const content = m.content
+                                    if (!content) return undefined
+
+                                    // 尝试匹配新格式：[附件1: filename.pdf]
                                     const attachmentMarker = `[附件${index + 1}: ${file.name}]`
-                                    const attachmentIndex = content?.indexOf(attachmentMarker)
-                                    if (attachmentIndex && attachmentIndex > 0) {
+                                    const attachmentIndex = content.indexOf(attachmentMarker)
+
+                                    if (attachmentIndex >= 0) {
                                       const startIndex = attachmentIndex + attachmentMarker.length
-                                      const nextMarker = content.indexOf('[附件', startIndex)
-                                      const endIndex = nextMarker > 0 ? nextMarker : content.length
+                                      // 查找下一个附件标记或内容结束
+                                      const nextMarkerMatch = content.substring(startIndex).match(/\[(附件|图片)\d+:/)
+                                      const endIndex = nextMarkerMatch
+                                        ? startIndex + nextMarkerMatch.index!
+                                        : content.length
                                       return content.substring(startIndex, endIndex).trim()
                                     }
                                     return undefined

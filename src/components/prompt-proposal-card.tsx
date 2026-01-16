@@ -144,7 +144,7 @@ export function PromptProposalCard({ toolInvocation, addToolResult }: PromptProp
 
     return (
         <>
-        <Card className="w-full border-primary/50 shadow-md overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-500">
+        <Card className="w-full max-w-none border-primary/50 shadow-md overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-500">
             <CardHeader className="bg-muted/30 pb-3">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
