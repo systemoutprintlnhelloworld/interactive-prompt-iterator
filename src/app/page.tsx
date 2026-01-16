@@ -25,6 +25,7 @@ import { FileAttachmentIcon } from '@/components/file-attachment-icon'
 import { FavoritesPage } from '@/components/favorites-page'
 import { SpotlightSearch } from '@/components/spotlight-search'
 import { ImagePreview } from '@/components/image-preview'
+import { VersionBadge } from '@/components/version-badge'
 
 export default function Home() {
   const { apiKey, baseUrl, model, availableModels, setModel } = useAppStore()
@@ -644,7 +645,7 @@ export default function Home() {
               <Code2 className="w-5 h-5 text-primary" />
             </div>
             <h1 className="text-xl font-bold tracking-tight">Prompt Iterator</h1>
-            <Badge variant="outline" className="text-xs font-normal">v1.57</Badge>
+            <VersionBadge />
           </div>
           <div className="flex items-center gap-2">
             <Select value={model} onValueChange={setModel}>
