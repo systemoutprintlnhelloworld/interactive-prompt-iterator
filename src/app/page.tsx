@@ -96,7 +96,7 @@ export default function Home() {
         role: m.role as any,
         content: m.content,
         toolInvocations: m.toolInvocations,
-        file: m.file
+        files: m.files
       }))
       setMessages(uiMessages)
     }
@@ -793,7 +793,7 @@ export default function Home() {
                     <div
                       className={`rounded-2xl px-5 py-3 shadow-sm ${m.role === 'user'
                         ? 'bg-primary text-primary-foreground rounded-tr-sm max-w-[85%]'
-                        : 'bg-card text-card-foreground border rounded-tl-sm w-full'
+                        : 'bg-card text-card-foreground border rounded-tl-sm max-w-[90%]'
                         }`}
                     >
                       {/* 只在有内容且不是纯工具调用时显示文本 */}

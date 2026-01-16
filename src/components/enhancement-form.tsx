@@ -217,7 +217,7 @@ export function EnhancementForm({ toolInvocation, addToolResult, onSubmit }: Enh
     }
 
     return (
-        <Card className="w-full max-w-none mx-auto border-primary/20 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-500">
+        <Card className="w-full max-w-5xl mx-auto border-primary/20 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-500">
             <CardHeader className="bg-primary/5 pb-3">
                 <div className="flex items-center gap-2">
                     <Sparkles className="w-5 h-5 text-primary" />
