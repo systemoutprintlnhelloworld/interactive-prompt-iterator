@@ -236,24 +236,7 @@
 
 ### 完整使用流程
 
-```mermaid
-graph TD
-    Start([打开应用]) --> Input[输入模糊需求]
-    Input --> Upload{需要上传文件?}
-    Upload -->|是| DragDrop[拖拽文件或点击上传]
-    Upload -->|否| Submit[点击发送]
-    DragDrop --> Submit
-    Submit --> AI[AI 分析需求]
-    AI --> Questions[展示多维度选项]
-    Questions --> UserSelect[选择偏好]
-    UserSelect --> Generate[生成结构化提示词]
-    Generate --> Preview[预览和详情]
-    Preview --> Action{操作}
-    Action -->|复制| Copy[复制提示词]
-    Action -->|收藏| Fav[添加到收藏]
-    Action -->|修改| Feedback[输入反馈]
-    Feedback --> AI
-```
+![用户交互流程图](interact.png)
 
 ### 核心交互特性
 
