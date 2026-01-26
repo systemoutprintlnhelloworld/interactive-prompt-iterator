@@ -368,9 +368,9 @@ export function SettingsDialog() {
 
             // 如果剪贴板为空或无效，回退到手动输入
             if (!base64String) {
-                base64String = prompt(t('settings.importPrompt'))
-                if (!base64String) return
-                base64String = base64String.trim()
+                const userInput = prompt(t('settings.importPrompt'))
+                if (!userInput) return
+                base64String = userInput.trim()
             }
 
             // 解析配置
