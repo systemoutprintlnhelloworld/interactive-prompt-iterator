@@ -3,44 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  /* 主题切换动画 - 更平滑柔和的过渡效果 */
-  /* 排除输入框、动画元素等不需要过渡的元素 */
-  :root {
-    --theme-transition-duration: 2.5s;
-    --theme-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  html {
-    transition: background-color var(--theme-transition-duration) var(--theme-transition-timing);
-  }
-
-  body {
-    transition: background-color var(--theme-transition-duration) var(--theme-transition-timing),
-                color var(--theme-transition-duration) var(--theme-transition-timing);
-  }
-
-  /* 对主要 UI 元素应用过渡 */
-  div, section, article, aside, nav, header, footer, main,
-  button, a, span, p, h1, h2, h3, h4, h5, h6,
-  [class*="card"], [class*="dialog"], [class*="popover"],
-  [class*="dropdown"], [class*="menu"], [class*="sidebar"] {
-    transition: background-color var(--theme-transition-duration) var(--theme-transition-timing),
-                border-color var(--theme-transition-duration) var(--theme-transition-timing),
-                color var(--theme-transition-duration) var(--theme-transition-timing);
-  }
-
-  /* 排除输入框和文本域，避免影响输入体验 */
-  input, textarea, select {
-    transition: background-color 0.2s ease,
-                border-color 0.2s ease,
-                color 0.2s ease;
-  }
-
-  /* 排除已有动画的元素 */
-  [class*="animate"], [class*="transition"] {
-    transition: none;
-  }
-
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
